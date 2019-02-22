@@ -1,3 +1,4 @@
+//Copy and paste this to bottom of theme.js or equivalent file
 $(theme.init);
 $( document ).ready(function() {
  if( typeof product_variants_removed != undefined ) {  // was there items to be removed?
@@ -18,3 +19,17 @@ $( document ).ready(function() {
    }
  }
 });
+
+//Copy below to bottom of product-template.liquid or equivalent file
+
+{% if collection.handle == 'clearance' and product.options.size == 1 %}
+ <script>
+   var product_variants_removed = [
+     {%- for variant in product.variants -%}
+       {%- unless variant.compare_at_price > 1 -%}
+         '{{ variant.title }}',
+       {%- endunless -%}
+     {%- endfor -%}
+   ];
+ </script>
+{% endif %}
